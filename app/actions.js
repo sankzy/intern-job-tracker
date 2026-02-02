@@ -6,21 +6,11 @@ import { revalidatePath } from "next/cache";
 
 export async function addJob(formData) {
   await connectDB();
-  
-  // Extract data from the form fields
   const company = formData.get("company");
   const role = formData.get("role");
   const link = formData.get("link");
 
-  // Create the entry in your MongoDB
-  await Job.create({
-    company,
-    role,
-    link,
-    status: "Pending"
-  });
-
-  // This tells Next.js to refresh the page so the new job shows up!
+  await Job.create({ company, role, link, status: "Pending" });
   revalidatePath("/");
 }
 
